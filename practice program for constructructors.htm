@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #canvas1{
+            height: 700px;
+            width: 500px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            border: solid black 2px;
+        }
+    </style>
+</head>
+<body style="background-color: b12228; color: white;font-family: handlee;font-size: 15px;">
+    <center><h1 style=" color: blue;">pixel rain effect</h1></center>
+    <canvas id="canvas1"></canvas>
+    <script>
+        const canvas = document.getElementById("canvas1")
+        canvas.width = 500
+        canvas.height = 700
+        const ctx = canvas.getContext("2d")
+        let rectangleArray = []
+        class rectangle{
+            constructor(){
+                this.width = Math.random()*10 + 50
+                this.height = Math.random()*10 + 50 
+                this.x = Math.random()*canvas.width
+                this.y = 0
+                this.velocity = (Math.random()*10) +5
+                this.color = "#" + Math.floor(Math.random()*16777215).toString(16)
+            }
+            update(){
+                this.y += this.velocity
+                if(this.y >= canvas.height){
+                    this.y = 0
+                    this.x = Math.random()*canvas.width
+                }
+            }
+            draw(){
+                ctx.fillStyle = this.color
+                ctx.fillRect(this.x,this.y,this.width,this.height)
+            }
+        }
+        function init(){
+            for(let i = 0;i <= 50;i++){
+                rectangleArray.push(new rectangle)
+            }
+        }
+        init()
+        console.log(rectangleArray)
+        function animate(){
+            ctx.globalAlpha = 0.5
+            ctx.fillStyle = "rgb(0,0,0)"
+            ctx.fillRect(0,0,canvas.width,canvas.height)
+            for(let i = 0;i < rectangleArray.length;i++){
+                rectangleArray[i].update()
+                rectangleArray[i].draw()
+            }
+            requestAnimationFrame(animate)
+        }
+        animate()
+    </script>
+    
+</body>
+</html>

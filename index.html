@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>home</title>
+    <style>
+        body {
+  margin: 0;
+  background: #EEE;
+  user-select: none;
+  font-family: sans-serif;
+}
+
+
+#slider {
+  position: relative;
+  width: 50%;
+  height: 30vw;
+  margin: 80px auto;
+  font-family: 'Helvetica Neue', sans-serif;
+  perspective: 1400px;
+  transform-style: preserve-3d;
+}
+
+input[type=radio] {
+  position: relative;
+  top: 108%;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  margin: 0 15px 0 0;
+  opacity: 0.4;
+  transform: translateX(-83px);
+  cursor: pointer;
+}
+
+
+input[type=radio]:nth-child(5) {
+  margin-right: 0px;
+}
+
+input[type=radio]:checked {
+  opacity: 1;
+}
+
+
+
+
+#slider label {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  color: white;
+  font-size: 70px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 400ms ease;
+}
+
+#slide1 {
+  background: tomato;
+}
+
+#slide2 {
+  background: yellowgreen;
+}
+
+#slide3 {
+  background: dodgerblue;
+}
+
+#slide4 {
+  background: slateblue;
+}
+
+#slide5 {
+  background: violet;
+}
+
+
+/* Slider Functionality */
+
+/* Active Slide */
+#s1:checked ~ #slide1, #s2:checked ~ #slide2, #s3:checked ~ #slide3, #s4:checked ~ #slide4, #s5:checked ~ #slide5 {
+  box-shadow: 0 13px 26px rgba(0,0,0, 0.3), 0 12px 6px rgba(0,0,0, 0.2);
+  transform: translate3d(0%, 0, 0px);
+}
+
+/* Next Slide */
+#s1:checked ~ #slide2, #s2:checked ~ #slide3, #s3:checked ~ #slide4, #s4:checked ~ #slide5, #s5:checked ~ #slide1 {
+  box-shadow: 0 6px 10px rgba(0,0,0, 0.3), 0 2px 2px rgba(0,0,0, 0.2);
+  transform: translate3d(15%, 0, -100px);
+}
+
+
+/* Next to Next Slide */
+#s1:checked ~ #slide3, #s2:checked ~ #slide4, #s3:checked ~ #slide5, #s4:checked ~ #slide1, #s5:checked ~ #slide2 {
+  box-shadow: 0 1px 4px rgba(0,0,0, 0.4);
+  transform: translate3d(30%, 0, -250px);
+}
+
+/* Previous to Previous Slide */
+#s1:checked ~ #slide4, #s2:checked ~ #slide5, #s3:checked ~ #slide1, #s4:checked ~ #slide2, #s5:checked ~ #slide3 {
+  box-shadow: 0 1px 4px rgba(0,0,0, 0.4);
+  transform: translate3d(-30%, 0, -250px);
+}
+
+/* Previous Slide */
+#s1:checked ~ #slide5, #s2:checked ~ #slide1, #s3:checked ~ #slide2, #s4:checked ~ #slide3, #s5:checked ~ #slide4 {
+  box-shadow: 0 6px 10px rgba(0,0,0, 0.3), 0 2px 2px rgba(0,0,0, 0.2);
+  transform: translate3d(-15%, 0, -100px);
+}
+
+
+
+
+
+#canvas1{
+            height:1200px;
+            width: 2000px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            border: solid black 2px;
+           z-index: -4;
+        }
+        
+    </style>
+</head>
+<body>
+  
+    <section id="slider">
+      <canvas id="canvas1"></canvas>
+
+        <input type="radio" name="slider" id="s2" checked>
+        <input type="radio" name="slider" id="s3">
+        <input type="radio" name="slider" id="s4">
+        <input type="radio" name="slider" id="s5">
+      
+
+        <label for="s2" id="slide2"><a href="pingpong game.html"><img src="joshua-hoehne-RdpBcH7YoKs-unsplash.jpg" style="height:100%;width:100%"></a></label>
+        <label for="s3" id="slide3"><a href="dragon.html"><img src="dragon.png" alt="" style="height:100%;width:100%"></a></label>
+        <label for="s4" id="slide4"><a href="tick tack toe 1.html"> <img src="data:image/png;base64,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" alt="" style="height:100%;width:100%"></a></label>
+        <label for="s5" id="slide5"><a href="snakegame.html"><img src="bg.jpg" alt="" style="height: 100%;width:100%"></a></label>
+      </section>
+
+      <script>
+        const canvas = document.getElementById("canvas1")
+        canvas.width = 2000
+        canvas.height = 1200
+        const ctx = canvas.getContext("2d")
+        let rectangleArray = []
+        class rectangle{
+            constructor(){
+                this.width = Math.random()*10 + 60
+                this.height = Math.random()*10 + 60 
+                this.x = Math.random()*canvas.width
+                this.y = 0
+                this.velocity = (Math.random()*10) +5
+                this.color = "#" + Math.floor(Math.random()*16777215).toString(16)
+            }
+            update(){
+                this.y += this.velocity
+                if(this.y >= canvas.height){
+                    this.y = 0
+                    this.x = Math.random()*canvas.width
+                }
+            }
+            draw(){
+                ctx.fillStyle = this.color
+                ctx.fillRect(this.x,this.y,this.width,this.height)
+            }
+        }
+        function init(){
+            for(let i = 0;i <= 50;i++){
+                rectangleArray.push(new rectangle)
+            }
+        }
+        init()
+        console.log(rectangleArray)
+        function animate(){
+            ctx.globalAlpha = 0.5
+            ctx.fillStyle = "rgb(0,0,0)"
+            ctx.fillRect(0,0,canvas.width,canvas.height)
+            for(let i = 0;i < rectangleArray.length;i++){
+                rectangleArray[i].update()
+                rectangleArray[i].draw()
+            }
+            requestAnimationFrame(animate)
+        }
+        animate()
+    </script>
+    
+
+</body>
+</html>
